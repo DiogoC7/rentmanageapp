@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Property {
+  id          Int      @id @default(autoincrement())
+  name        String
+  street      String
+  postalCode  String
+  city        String      
+  year        Int
+  occupied    Boolean?  @default(false) // field to track occupancy status
+  description String?
+  typology    String
+  imageUrl    String?
+  rentalContracts RentalContract[] // One property can have many rental contracts
+  createdAt   DateTime @default(now())
+}
+
+model Tenant {
+  id          Int              @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  email       String?           @unique
+  phoneNumber String
+  nif         String? 
+  isActive    Boolean?
+  rentalContracts RentalContract[] // A tenant can have multiple rental contracts (historical and current)
+}
+
+model RentalContract {
+  id            Int       @id @default(autoincrement())
+  propertyId    Int       // Foreign key para Property
+  tenantId      Int       // Foreign key para Tenant
+  isActive      Boolean?  //se o contrato está ativo no momento
+  startDate     DateTime
+  endDate       DateTime?  // Contratos em andamento têm o endDate como null
+  rentAmount    Float      // Valor mensal do aluguel
+  paidUntil     DateTime?  // Data até a qual o arrendamento está pago
+  monthsDue     Int?       // Número de meses em atraso (calculado ou armazenado)
+  totalDue      Float?     // Valor total devido (calculado ou armazenado)
+  extraMonth    Boolean?    // Se tem o mês extra em dia ou não
+  property      Property   @relation(fields: [propertyId], references: [id])
+  tenant        Tenant     @relation(fields: [tenantId], references: [id])
+}
