@@ -1,21 +1,24 @@
 import React from 'react';
-import Card from './Card'; // Importa o componente Card
+import Card from './Card'; // Import the default Card component
 
-// Componente CardList para gerar múltiplos cards
-const CardList = ({ items, onItemClick }) => {
+// Componente CardList para gerar múltiplos cards dinamicamente
+const CardList = ({ items = [], onItemClick, renderItem }) => {
   return (
-    <div>
-      {/* Mapeia e exibe os itens na lista */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {items.map((item) => (
-          <Card
-            key={item.id}
-            title={item.title} // Passa o título para o Card
-            fields={item.fields} // Passa os campos para o Card
-            onClick={() => onItemClick(item.id)} // Função de clique para cada Card
-          />
-        ))}
-      </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {items.map((item) => (
+        <div key={item.id}>
+          {/* Use renderItem if provided, otherwise render Card */}
+          {renderItem ? (
+            renderItem(item)
+          ) : (
+            <Card
+              title={item.title}
+              fields={item.fields}
+              onClick={() => onItemClick(item.id)}
+            />
+          )}
+        </div>
+      ))}
     </div>
   );
 };

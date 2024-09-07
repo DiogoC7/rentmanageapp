@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import logo from '../../assets/images/rent-manage-logo.png';
 
 const Sidebar = () => {
   // Estado para controlar os menus que estão abertos
   const [openMenus, setOpenMenus] = useState({});
+
+  const navigate = useNavigate();
 
   // Função para alternar o estado de um submenu
   const toggleMenu = (menu) => {
@@ -14,23 +18,18 @@ const Sidebar = () => {
 
   return (
     <div className="bg-gray-800 text-white h-screen w-50 p-6">
-      <h2 className="text-2xl font-semibold mb-6">Menu</h2>
+      <div className="mb-6">
+        <img src={logo} alt="Logo" className="h-12 w-auto m-auto" /> {/* Adjust size as needed */}
+      </div>
 
       {/* Menu Item 1 */}
       <div>
         <button 
           className="w-full text-left flex justify-between items-center py-2 px-4 hover:bg-gray-700"
-          onClick={() => toggleMenu('menu1')}
+          onClick={() => navigate('/properties')}
         >
           <span>Imóveis</span>
-          <span>{openMenus['menu1'] ? '-' : '+'}</span> {/* Ícone para expandir/colapsar */}
         </button>
-        {openMenus['menu1'] && (
-          <ul className="pl-4">
-            <li className="py-1 hover:bg-gray-700 px-2">Submenu 1.1</li>
-            <li className="py-1 hover:bg-gray-700 px-2">Submenu 1.2</li>
-          </ul>
-        )}
       </div>
 
       {/* Menu Item 2 */}

@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Componente Card
-const Card = ({ title, fields, onClick }) => {
+const Card = ({ title, fields = [], onClick }) => {
   return (
     <div 
       className="bg-white shadow-md rounded-lg p-6 mb-4 hover:shadow-lg transition-shadow cursor-pointer"
@@ -15,13 +15,17 @@ const Card = ({ title, fields, onClick }) => {
       <div className="space-y-4">
         {fields.map((fieldGroup, index) => (
           <div key={index} className="flex justify-between items-center">
-            {/* Renderiza os campos de cada linha */}
+            {/* Check if fieldGroup is an array before calling map */}
             <div className="flex-grow flex space-x-4">
-              {fieldGroup.map((field, fieldIndex) => (
-                <p key={fieldIndex} className="text-gray-700 text-sm">
-                  {field}
-                </p>
-              ))}
+              {Array.isArray(fieldGroup) ? (
+                fieldGroup.map((field, fieldIndex) => (
+                  <p key={fieldIndex} className="text-gray-700 text-sm">
+                    {field}
+                  </p>
+                ))
+              ) : (
+                <p className="text-gray-700 text-sm">{fieldGroup}</p>
+              )}
             </div>
             {/* Botão circular com seta fixo à direita */}
             <div className="flex-shrink-0">
@@ -40,4 +44,3 @@ const Card = ({ title, fields, onClick }) => {
 };
 
 export default Card;
-

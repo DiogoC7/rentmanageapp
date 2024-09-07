@@ -23,9 +23,21 @@ model Property {
   occupied    Boolean?  @default(false) // field to track occupancy status
   description String?
   typology    String
+  hasWorks    Boolean?
   imageUrl    String?
   rentalContracts RentalContract[] // One property can have many rental contracts
+  works       Works[]          // One property can have many maintenance works
   createdAt   DateTime @default(now())
+}
+
+model Works {
+  id          Int      @id @default(autoincrement())
+  cost        Float
+  startDate   DateTime
+  endDate     DateTime?  // Contratos em andamento têm o endDate como null
+  description String?
+  propertyId  Int      // Foreign key para Property
+  property    Property   @relation(fields: [propertyId], references: [id])
 }
 
 model Tenant {
