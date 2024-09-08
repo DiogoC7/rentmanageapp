@@ -17,7 +17,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="bg-gray-800 text-white h-screen w-50 p-6">
+    <div className="bg-gray-800 text-white min-h-screen w-[150px] p-6">
       <div className="mb-6">
         <img src={logo} alt="Logo" className="h-12 w-auto m-auto" /> {/* Adjust size as needed */}
       </div>
@@ -25,7 +25,7 @@ const Sidebar = () => {
       {/* Menu Item 1 */}
       <div>
         <button 
-          className="w-full text-left flex justify-between items-center py-2 px-4 hover:bg-gray-700"
+          className="w-full text-left flex justify-between items-center py-2 px-4 hover:font-semibold whitespace-nowrap"
           onClick={() => navigate('/properties')}
         >
           <span>Imóveis</span>
@@ -35,52 +35,31 @@ const Sidebar = () => {
       {/* Menu Item 2 */}
       <div className="mt-4">
         <button 
-          className="w-full text-left flex justify-between items-center py-2 px-4 hover:bg-gray-700"
+          className="w-full text-left flex justify-between items-center py-2 px-4 hover:font-semibold whitespace-nowrap"
           onClick={() => toggleMenu('menu2')}
         >
           <span>Inquilinos</span>
-          <span>{openMenus['menu2'] ? '-' : '+'}</span>
         </button>
-        {openMenus['menu2'] && (
-          <ul className="pl-4">
-            <li className="py-1 hover:bg-gray-700 px-2">Submenu 2.1</li>
-            <li className="py-1 hover:bg-gray-700 px-2">Submenu 2.2</li>
-          </ul>
-        )}
       </div>
 
       {/* Menu Item 3 */}
       <div className="mt-4">
         <button 
-          className="w-full text-left flex justify-between items-center py-2 px-4 hover:bg-gray-700"
+          className="w-full text-left flex justify-between items-center py-2 px-4 hover:font-semibold whitespace-nowrap"
           onClick={() => toggleMenu('menu3')}
         >
           <span>Contratos</span>
-          <span>{openMenus['menu3'] ? '-' : '+'}</span>
         </button>
-        {openMenus['menu3'] && (
-          <ul className="pl-4">
-            <li className="py-1 hover:bg-gray-700 px-2">Submenu 3.1</li>
-            <li className="py-1 hover:bg-gray-700 px-2">Submenu 3.2</li>
-          </ul>
-        )}
       </div>
 
       {/* Menu Item 3 */}
       <div className="mt-4">
         <button 
-          className="w-full text-left flex justify-between items-center py-2 px-4 hover:bg-gray-700"
+          className="w-full text-left flex justify-between items-center py-2 px-4 hover:font-semibold"
           onClick={() => toggleMenu('menu3')}
         >
           <span>Análise</span>
-          <span>{openMenus['menu3'] ? '-' : '+'}</span>
         </button>
-        {openMenus['menu3'] && (
-          <ul className="pl-4">
-            <li className="py-1 hover:bg-gray-700 px-2">Submenu 3.1</li>
-            <li className="py-1 hover:bg-gray-700 px-2">Submenu 3.2</li>
-          </ul>
-        )}
       </div>
     </div>
   );
